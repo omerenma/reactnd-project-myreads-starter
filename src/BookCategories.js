@@ -7,11 +7,12 @@ class BookCategories extends Component {
   };
 
   update = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(() => {
-      BooksAPI.getAll().then((data) => {
-        this.setState({ books: data });
-      });
-    });
+    BooksAPI.update(book, shelf)
+    BooksAPI.getAll().then((book) => {this.setState({ books: book })});
+
+    // .then(() => {
+    //   BooksAPI.getAll().then((book) => {this.setState({ books: book })});
+    // });
   };
   render() {
     const { key, books, image, shelf, title, author } = this.props;

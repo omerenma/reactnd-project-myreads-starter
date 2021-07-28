@@ -2,7 +2,9 @@ import React from "react";
 import * as BooksAPI from "./BooksAPI";
 import BookCategories from "./BookCategories";
 import BookShelfs from "./BookShelfs";
-import {Link} from 'react-router-dom'
+import Search from "./Search";
+
+import { Route, Link } from "react-router-dom";
 import "./App.css";
 
 const book_shelve = [
@@ -12,12 +14,6 @@ const book_shelve = [
 ];
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     data: [],
     showSearchPage: false,
   };
@@ -31,23 +27,28 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <button
-                className="close-search"
-                onClick={() => this.setState({ showSearchPage: false })}
-              >
-                Close
-              </button>
-              <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author" />
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid" />
-            </div>
-          </div>
+          <Search
+            data={this.state.data.map((books) => {
+              return books;
+            })}
+          />
         ) : (
+          // <div className="search-books">
+          //   <div className="search-books-bar">
+          //     <button
+          //       className="close-search"
+          //       onClick={() => this.setState({ showSearchPage: false })}
+          //     >
+          //       Close
+          //     </button>
+          //     <div className="search-books-input-wrapper">
+          //       <input type="text" placeholder="Search by title or author" />
+          //     </div>
+          //   </div>
+          //   <div className="search-books-results">
+          //     <ol className="books-grid" />
+          //   </div>
+          // </div>
           <div className="app">
             <div className="list-books">
               <div className="list-books-title">
@@ -79,6 +80,7 @@ class BooksApp extends React.Component {
               </div>
 
               <div className="open-search">
+                <Route exact path="/search" render={() => <Search />} />
                 <button onClick={() => this.setState({ showSearchPage: true })}>
                   Add a book
                 </button>
