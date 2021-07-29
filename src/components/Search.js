@@ -8,7 +8,7 @@ class Search extends Component {
     this.state = {
       query: "",
       booksResult: [],
-      searchResult:[],
+      searchResult: [],
       state: false,
     };
   }
@@ -17,12 +17,10 @@ class Search extends Component {
     BooksAPI.update(book, shelf);
     BooksAPI.getAll().then((data) => {
       this.setState({ books: data });
-      window.location.reload(true)
-
+      window.location.reload(true);
     });
   };
 
-  
   updateQuery = (query) => {
     this.setState(() => ({
       query: query,
@@ -55,11 +53,11 @@ class Search extends Component {
                   type="text"
                   placeholder="Search by title or author"
                   value={query}
-                  onChange={(e) => {
-                    BooksAPI.search(e.target.value).then(data =>{
-                      this.setState({searchResult:data})
+                  onChange={(e) =>
+                    BooksAPI.search(e.target.value).then((data) => {
+                      this.setState({ searchResult: data });
                     })
-                  }}
+                  }
                   //onChange={(e) => this.updateQuery(e.target.value)}
                 />
               </form>
