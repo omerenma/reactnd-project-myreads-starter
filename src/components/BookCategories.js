@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as BooksAPI from "./BooksAPI";
-import "../styles/styles.css"
+import "../styles/styles.css";
 
 class BookCategories extends Component {
   state = {
@@ -8,12 +8,10 @@ class BookCategories extends Component {
   };
 
   update = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    BooksAPI.getAll().then((book) => {this.setState({ books: book })});
-
-    // .then(() => {
-    //   BooksAPI.getAll().then((book) => {this.setState({ books: book })});
-    // });
+    BooksAPI.update(book, shelf);
+    BooksAPI.getAll().then((book) => {
+      this.setState({ books: book });
+    });
   };
   render() {
     const { id, books, image, shelf, title, author } = this.props;
