@@ -13,25 +13,17 @@ class Search extends Component {
   }
 
   update = (book, shelf) => {
-    BooksAPI.update(book, shelf)
+    BooksAPI.update(book, shelf);
     BooksAPI.getAll().then((data) => {
-        this.setState({ books: data });
-      })
-    // .then(() => {
-    //   BooksAPI.getAll().then((data) => {
-    //     this.setState({ books: data });
-    //   });
-    // });
+      this.setState({ books: data });
+    });
   };
 
   updateQuery = (query) => {
     this.setState(() => ({
-      query: query
-    }))
-    
+      query: query,
+    }));
   };
-
- 
 
   componentDidMount() {
     BooksAPI.getAll().then((books) => this.setState({ booksResult: books }));
@@ -50,11 +42,7 @@ class Search extends Component {
       <div>
         <div className="search-books">
           <div className="search-books-bar">
-            <Link
-              to="/"
-              className="close-search"
-              //onClick={() => this.setState({ showSearchPage: false })}
-            >
+            <Link to="/" className="close-search">
               Close
             </Link>
             <div className="search-books-input-wrapper">
@@ -64,7 +52,6 @@ class Search extends Component {
                   placeholder="Search by title or author"
                   value={query}
                   onChange={(e) => this.updateQuery(e.target.value)}
-
                 />
               </form>
             </div>
@@ -90,8 +77,9 @@ class Search extends Component {
                             <div className="book-shelf-changer">
                               <select
                                 value={book.shelf}
-                                onChange={(e) => this.update(book, e.target.value)}
-
+                                onChange={(e) =>
+                                  this.update(book, e.target.value)
+                                }
                               >
                                 <option value="move" disabled>
                                   Move to...

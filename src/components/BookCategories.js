@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as BooksAPI from "./BooksAPI";
+import "../styles/styles.css"
 
 class BookCategories extends Component {
   state = {
@@ -15,13 +16,13 @@ class BookCategories extends Component {
     // });
   };
   render() {
-    const { key, books, image, shelf, title, author } = this.props;
+    const { id, books, image, shelf, title, author } = this.props;
     return (
-      <li key={key}>
+      <li key={id}>
         <div className="book">
           <div className="book-top">
             <div
-              className="book-cover"
+              className="book-cover cover"
               style={{
                 width: 128,
                 height: 193,
