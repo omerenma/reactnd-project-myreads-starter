@@ -33,12 +33,6 @@ class Search extends Component {
   render() {
     const { data } = this.props;
     const { query, booksResult, searchResult } = this.state;
-    const bookSearch =
-      query === ""
-        ? "Please enter some text"
-        : searchResult.filter((f) =>
-            f.title.toLowerCase().includes(query.toLowerCase())
-          );
 
     return (
       <div>
@@ -53,11 +47,11 @@ class Search extends Component {
                   type="text"
                   placeholder="Search by title or author"
                   value={query}
-                  onChange={(e) =>{
-                    this.setState({query:e.target.value})
+                  onChange={(e) => {
+                    this.setState({ query: e.target.value });
                     BooksAPI.search(e.target.value).then((data) => {
-                      this.setState({ searchResult: data})
-                    })
+                      this.setState({ searchResult: data });
+                    });
                   }}
                   //onChange={(e) => this.updateQuery(e.target.value)}
                 />
@@ -72,16 +66,19 @@ class Search extends Component {
                       <li key={book.id}>
                         <div className="book">
                           <div className="book-top">
-                            <div
+                            {
+                              !book.imageLinks || book.imageLinks === undefined ? null :<div
                               className="book-cover"
                               style={{
                                 width: 128,
                                 height: 193,
-                                backgroundImage: `url(${
-                                  book.imageLinks.thumbnail
-                                })`,
+                                backgroundImage: `url(${book.imageLinks.thumbnail})`
+                                
+                                
                               }}
                             />
+                            }
+                            
                             <div className="book-shelf-changer">
                               <select
                                 value={book.shelf}
@@ -92,12 +89,14 @@ class Search extends Component {
                                 <option value="move" disabled>
                                   Move to...
                                 </option>
-                                <option value={book.shelf}>{book.shelf}</option>
+                                {/* <option value={book.shelf}>{book.shelf}</option> */}
                                 <option value="currentlyReading">
                                   Currently reading
                                 </option>
                                 <option value="wantToRead">Want to read</option>
                                 <option value="read">Read</option>
+                                <option value="none">None</option>
+
                               </select>
                             </div>
                           </div>
@@ -117,3 +116,10 @@ class Search extends Component {
 }
 
 export default Search;
+
+// const bookSearch =
+// query === ""
+//         ? "Please enter some text"
+//         : searchResult.filter((f) =>
+//             f.title.toLowerCase().includes(query.toLowerCase())
+//           );

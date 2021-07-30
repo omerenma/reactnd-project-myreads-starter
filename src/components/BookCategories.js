@@ -8,13 +8,12 @@ class BookCategories extends Component {
   };
 
   update = (book, shelf) => {
-    BooksAPI.update(book, shelf)
+    BooksAPI.update(book, shelf);
 
     BooksAPI.getAll().then((book) => {
       this.setState({ books: book });
-      window.location.reload(true)
+      window.location.reload(true);
     });
-    
   };
   render() {
     const { id, books, image, shelf, title, author } = this.props;
