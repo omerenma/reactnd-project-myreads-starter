@@ -53,11 +53,12 @@ class Search extends Component {
                   type="text"
                   placeholder="Search by title or author"
                   value={query}
-                  onChange={(e) =>
+                  onChange={(e) =>{
+                    this.setState({query:e.target.value})
                     BooksAPI.search(e.target.value).then((data) => {
-                      this.setState({ searchResult: data });
+                      this.setState({ searchResult: data})
                     })
-                  }
+                  }}
                   //onChange={(e) => this.updateQuery(e.target.value)}
                 />
               </form>
