@@ -14,16 +14,17 @@ class Search extends Component {
   }
 
   update = (book, shelf) => {
-    BooksAPI.update(book, shelf);
-    BooksAPI.getAll().then((data) => {
-      this.setState({ books: data });
-      window.location.reload(true);
+    BooksAPI.update(book, shelf).then(() => {
+      BooksAPI.getAll().then((data) => {
+        this.setState({ books: data });
+        window.location.reload(true);
+      });
     });
   };
 
   updateQuery = (query) => {
     this.setState(() => ({
-      query: query, 
+      query: query,
     }));
   };
 
@@ -62,23 +63,30 @@ class Search extends Component {
             <ol className="books-grid">
               {searchResult && Array.isArray(searchResult)
                 ? searchResult.map((book) => {
+                    let bookShelf = data.find((b) => b.id === book.id);
+                    if (bookShelf) {
+                      book.shelf = bookShelf.shelf;
+                    } else {
+                      book.shelf = "none";
+                    }
                     return (
                       <li key={book.id}>
                         <div className="book">
                           <div className="book-top">
-                            {
-                              !book.imageLinks || book.imageLinks === undefined ? null :<div
-                              className="book-cover"
-                              style={{
-                                width: 128,
-                                height: 193,
-                                backgroundImage: `url(${book.imageLinks.thumbnail})`
-                                
-                                
-                              }}
-                            />
-                            }
-                            
+                            {!book.imageLinks ||
+                            book.imageLinks === undefined ? null : (
+                              <div
+                                className="book-cover"
+                                style={{
+                                  width: 128,
+                                  height: 193,
+                                  backgroundImage: `url(${
+                                    book.imageLinks.thumbnail
+                                  })`,
+                                }}
+                              />
+                            )}
+
                             <div className="book-shelf-changer">
                               <select
                                 value={book.shelf}
@@ -96,7 +104,6 @@ class Search extends Component {
                                 <option value="wantToRead">Want to read</option>
                                 <option value="read">Read</option>
                                 <option value="none">None</option>
-
                               </select>
                             </div>
                           </div>

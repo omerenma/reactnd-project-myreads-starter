@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import * as BooksAPI from "./components/BooksAPI";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import BookCategories from "./components/BookCategories";
@@ -10,14 +10,13 @@ import "./App.css";
 import "./styles/styles.css";
 
 class BooksApp extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       data: [],
       showSearchPage: false,
     };
   }
- 
 
   componentDidMount() {
     BooksAPI.getAll().then((data) => this.setState({ data: data }));
@@ -46,7 +45,7 @@ class BooksApp extends Component {
                           if (book.shelf === shelfname.value) {
                             return (
                               <BookCategories
-                              key={book.id}
+                                key={book.id}
                                 id={book.id}
                                 image={book.imageLinks.thumbnail}
                                 shelf={book.shelf}
@@ -80,9 +79,10 @@ class BooksApp extends Component {
               path="/search"
               render={() => (
                 <Search
-                  data={data.map((books) => {
-                    return books;
-                  })}
+                  // data={data.map((books) => {
+                  //   return books;
+                  // })}
+                  data={data}
                 />
               )}
             />
