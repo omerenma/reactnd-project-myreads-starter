@@ -8,11 +8,11 @@ class BookCategories extends Component {
   };
 
   update = (book, shelf) => {
-    BooksAPI.update(book, shelf);
-
-    BooksAPI.getAll().then((book) => {
-      this.setState({ books: book });
-      window.location.reload(true);
+    BooksAPI.update(book, shelf).then(() => {
+      BooksAPI.getAll().then((book) => {
+        this.setState({ books: book });
+        window.location.reload(true);
+      });
     });
   };
   render() {
