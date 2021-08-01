@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import "../styles/styles.css";
 
@@ -11,7 +12,7 @@ class BookCategories extends Component {
     BooksAPI.update(book, shelf).then(() => {
       BooksAPI.getAll().then((book) => {
         this.setState({ books: book });
-        window.location.reload(true);
+        window.location.reload('/')
       });
     });
   };
@@ -54,4 +55,4 @@ class BookCategories extends Component {
   }
 }
 
-export default BookCategories;
+export default withRouter(BookCategories);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 
 class Search extends Component {
@@ -17,7 +17,7 @@ class Search extends Component {
     BooksAPI.update(book, shelf).then(() => {
       BooksAPI.getAll().then((data) => {
         this.setState({ books: data });
-        window.location.reload(true);
+        window.location.reload("/");
       });
     });
   };
@@ -90,9 +90,10 @@ class Search extends Component {
                             <div className="book-shelf-changer">
                               <select
                                 value={book.shelf}
-                                onChange={(e) =>
-                                  this.update(book, e.target.value)
-                                }
+                                onChange={(e) => {
+                                  this.update(book, e.target.value);
+                                  this.props.history.push("/");
+                                }}
                               >
                                 <option value="move" disabled>
                                   Move to...
@@ -122,11 +123,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
-
-// const bookSearch =
-// query === ""
-//         ? "Please enter some text"
-//         : searchResult.filter((f) =>
-//             f.title.toLowerCase().includes(query.toLowerCase())
-//           );
+export default withRouter(Search);
